@@ -4,9 +4,17 @@ import os
 import discord
 import random
 from dotenv import load_dotenv
+import environ
 
-GUILD='searchserver'
-TOKEN='NzA3OTM1NTcwMTAxNDAzNjk4.XrQD1Q.LR695I9LQQuiGvyAThySECvVAUU'
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+# reading .env file
+environ.Env.read_env()
+
+GUILD=env('GUILD')
+TOKEN=env('TOKEN')
 
 #load_dotenv('.env')
 client = discord.Client()

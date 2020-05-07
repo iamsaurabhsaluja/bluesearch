@@ -9,11 +9,17 @@ import subprocess
 import threading
 
 from dotenv import load_dotenv
+import environ
 
-#from discort import DiscordBot as bot
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+# reading .env file
+environ.Env.read_env()
 
-GUILD='searchserver'
-TOKEN='NzA3OTM1NTcwMTAxNDAzNjk4.XrQD1Q.LR695I9LQQuiGvyAThySECvVAUU'
+GUILD=env('GUILD')
+TOKEN=env('TOKEN')
 
 #load_dotenv('.env')
 client = discord.Client()
