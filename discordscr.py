@@ -5,8 +5,8 @@ import discord
 import random
 from dotenv import load_dotenv
 
-GUILD=''
-TOKEN=''
+GUILD='searchserver'
+TOKEN='NzA3OTM1NTcwMTAxNDAzNjk4.XrQD1Q.LR695I9LQQuiGvyAThySECvVAUU'
 
 #load_dotenv('.env')
 client = discord.Client()

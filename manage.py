@@ -12,8 +12,8 @@ from dotenv import load_dotenv
 
 #from discort import DiscordBot as bot
 
-GUILD=''
-TOKEN=''
+GUILD='searchserver'
+TOKEN='NzA3OTM1NTcwMTAxNDAzNjk4.XrQD1Q.LR695I9LQQuiGvyAThySECvVAUU'
 
 #load_dotenv('.env')
 client = discord.Client()
