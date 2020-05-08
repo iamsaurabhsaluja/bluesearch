@@ -20,4 +20,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-from discordsearch.services import initiateEngine
+#from discordsearch.services import initiateEngine
