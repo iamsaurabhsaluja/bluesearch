@@ -1,4 +1,3 @@
-# bot.py
 import os
 
 import discord
@@ -16,27 +15,19 @@ environ.Env.read_env()
 GUILD=env('GUILD')
 TOKEN=env('TOKEN')
 
-#load_dotenv('.env')
+#initiating the client
 client = discord.Client()
 
+#This is called when any message comes in discord chat
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
 
-    brooklyn_99_quotes = [
-        'I\'m the human form of the 💯 emoji.',
-        'Bingpot!',
-        (
-            'Cool. Cool cool cool cool cool cool cool, '
-            'no doubt no doubt no doubt no doubt.'
-        ),
-    ]
-
     if message.content == '99!':
-        response = random.choice(brooklyn_99_quotes)
-        await message.channel.send(response)
+        await message.channel.send('this is awesome')
 
+#This is called when discord chat is ready
 @client.event
 async def on_ready():
     for guild in client.guilds:
@@ -45,5 +36,5 @@ async def on_ready():
     members = '\n - '.join([member.name for member in guild.members])
     print(members)
 
-#bot = DiscordBot()
+#booting up engine
 client.run(TOKEN)
