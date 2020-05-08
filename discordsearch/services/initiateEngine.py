@@ -5,6 +5,8 @@ import random
 from dotenv import load_dotenv
 import environ
 
+from MessageHandler import MessageHandler
+
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
@@ -23,9 +25,10 @@ client = discord.Client()
 async def on_message(message):
     if message.author == client.user:
         return
+    bot_messages = MessageHandler.handle( message )
 
-    if message.content == '99!':
-        await message.channel.send('this is awesome')
+    for bot_message in bot_messages:
+        await message.channel.send( bot_message )
 
 #This is called when discord chat is ready
 @client.event
