@@ -5,7 +5,7 @@ import random
 from dotenv import load_dotenv
 import environ
 
-from MessageHandler import MessageHandler
+from discordsearch.services.MessageHandler import MessageHandler
 
 env = environ.Env(
     # set casting, default value
@@ -40,4 +40,4 @@ async def on_ready():
     print(members)
 
 #booting up engine
-#client.run(TOKEN)
+client.run(TOKEN)
