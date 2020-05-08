@@ -29,12 +29,6 @@ def start():
 
     from discordsearch.services import initiateEngine
 
-    #client.run(TOKEN)
-
-    #subprocess.Popen(['python','discordsearch/services/initiateEngine.py'], env = {'PYTHONPATH': os.pathsep.join(sys.path)})
-    #subprocess.Popen(['python','discordsearch/services/initiateEngine.py'])
-    #Popen
-
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
 
