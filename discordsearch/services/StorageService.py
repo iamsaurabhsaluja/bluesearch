@@ -14,6 +14,6 @@ from discordsearch.models import Messages
 class StorageService:
 
     def store( self, message, sender_name ):
-        message = Messages( message = message, sender_name = sender_name )
-        message.save()
+        #message = Messages( message = message, sender_name = sender_name )
+        #message.save()
         print('added')
