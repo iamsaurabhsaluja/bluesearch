@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class DiscordsearchConfig(AppConfig):
+class DiscordSearchConfig(AppConfig):
     name = 'discordsearch'

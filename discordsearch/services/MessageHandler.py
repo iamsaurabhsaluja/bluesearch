@@ -1,6 +1,6 @@
 import discord
 
-from AnsweringBot import AnsweringBot
+from discordsearch.services.AnsweringBot import AnsweringBot
 
 class MessageHandler:
 
@@ -9,5 +9,10 @@ class MessageHandler:
     """
 
     def handle( message ):
+
+        content = str(message.content)
+        print(message)
+        sender_name = '' #str(message.name)
+
         answering_bot = AnsweringBot()
-        return answering_bot.prepareResponse( message )
+        return answering_bot.prepareResponse( content, sender_name )

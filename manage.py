@@ -7,17 +7,35 @@ import discord
 import random
 import subprocess
 import threading
+import sys
+
+"""
+from discordsearch.services import InitiateEngine
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
+django.setup()
+from discordsearch.models import Messages
+from discordsearch.services import MessageHandler
+"""
 
 def start():
     """
     This is called the very first time when server runs
     Separate async subprocess is created to execute all discord tasks
     """
-    subprocess.Popen(['python','discordsearch/services/initiateEngine.py'])
+
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
+    django.setup()
+
+
+    #client.run(TOKEN)
+
+    #subprocess.Popen(['python','discordsearch/services/initiateEngine.py'], env = {'PYTHONPATH': os.pathsep.join(sys.path)})
+    #subprocess.Popen(['python','discordsearch/services/initiateEngine.py'])
+    #Popen
 
 def main():
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
 
     try:
         from django.core.management import execute_from_command_line

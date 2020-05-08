@@ -1,11 +1,17 @@
-import os
+from django.core.management.base import BaseCommand, CommandError
+import os, django
 
 import discord
 import random
 from dotenv import load_dotenv
 import environ
 
-from MessageHandler import MessageHandler
+from discordsearch.models import Messages
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
+django.setup()
+
+from discordsearch.services.MessageHandler import MessageHandler
 
 env = environ.Env(
     # set casting, default value
@@ -39,5 +45,8 @@ async def on_ready():
     members = '\n - '.join([member.name for member in guild.members])
     print(members)
 
-#booting up engine
-#client.run(TOKEN)
+class Command(BaseCommand):
+    help = 'Closes the specified poll for voting'
+
+    def handle(self, *args, **options):
+        client.run(TOKEN)

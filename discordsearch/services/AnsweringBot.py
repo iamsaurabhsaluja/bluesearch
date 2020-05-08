@@ -1,6 +1,7 @@
 import discord
 
-from SearchGoogle import SearchGoogle
+from discordsearch.services.SearchGoogle import SearchGoogle
+from discordsearch.services.StorageService import StorageService
 
 class AnsweringBot:
 
@@ -17,27 +18,36 @@ class AnsweringBot:
     def search( self, query ):
         limit = 5
         gsearchengine = SearchGoogle()
-        search_results = gsearchengine.topResults(query, limit)
+        search_results = ['success'] #gsearchengine.topResults(query, limit)
         return search_results
+
+    """
+    Method storeSearch creates the search history
+    """
+
+    def storeSearch( self, message, sender_name ):
+        storeService = StorageService()
+        storeService.store( message, sender_name )
 
     """
     Method prepareResponse prepares the search query,
     it handles keyword understanding and distributes the message
-    to the reque=ires methods
+    to the required method
     """
 
-    def prepareResponse( self, message ):
+    def prepareResponse( self, message, sender_name ):
 
         """
         checking the user data
         """
 
-        data = str(message.content)
-        tokens = data.split(' ')
-        query = data[len(tokens[0])+1:len(data)]
+        tokens = message.split(' ')
+        query = message[len(tokens[0])+1:]
 
         if tokens[0].lower() == '!google':
-            return self.search( query.strip() )
+            response = self.search( query.strip() )
+            self.storeSearch( query, sender_name )
+            return response
 
         if tokens[0].lower() == '!recent':
             return self.search( query.strip() )
