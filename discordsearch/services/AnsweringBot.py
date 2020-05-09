@@ -92,6 +92,9 @@ class AnsweringBot:
         elif intersaction_b >= 3:
             res = self.recentSearch( query, sender_id )
 
+            if len(res) == 2:
+                res = [res[0] , "Sorry, Nothing is found with - "+query , res[1]]
+
             if command != 'recent':
                 return ["You mean '!Recent'"]+res
             else:
