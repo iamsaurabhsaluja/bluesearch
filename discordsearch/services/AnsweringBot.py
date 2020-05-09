@@ -70,13 +70,15 @@ class AnsweringBot:
         The same is done with !Recent command
         """
 
-        command = command[1:]
-        command = command.lower()
-
-        intersaction_a = len(list(set(list('google')) & set(list(command))))
-        intersaction_b = len(list(set(list('recent')) & set(list(command))))
 
         if command[0] == '!':
+
+            command = command[1:]
+            command = command.lower()
+
+            intersaction_a = len(list(set(list('google')) & set(list(command))))
+            intersaction_b = len(list(set(list('recent')) & set(list(command))))
+
             if intersaction_a >= 3:
                 response = self.googleSearch( message, query.strip(), sender_id )
 
