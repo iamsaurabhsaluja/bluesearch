@@ -27,7 +27,7 @@ def start():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
     django.setup()
 
-    from discordsearch.services import InitiateEngine
+    from discordsearch.services import initiateEngine
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
