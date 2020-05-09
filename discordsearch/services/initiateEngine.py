@@ -12,7 +12,7 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 # reading .env file
-environ.Env.read_env()
+#environ.Env.read_env()
 
 GUILD=env('GUILD')
 TOKEN=env('TOKEN')
