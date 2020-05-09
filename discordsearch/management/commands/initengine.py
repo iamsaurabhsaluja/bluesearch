@@ -46,7 +46,7 @@ async def on_ready():
     print(members)
 
 class Command(BaseCommand):
-    help = 'Closes the specified poll for voting'
+    help = 'starts discord'
 
     def handle(self, *args, **options):
         client.run(TOKEN)

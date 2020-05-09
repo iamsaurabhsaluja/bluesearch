@@ -1,5 +1,7 @@
 from discordsearch.services.StorageService import StorageService
 from functools import cmp_to_key
+import random
+import concurrent.futures
 
 class CoreService:
 
@@ -34,6 +36,23 @@ class CoreService:
             else:
                 return -1
 
+    def getKeywordsForWords( self, words ):
+        store_service = StorageService()
+        executor = concurrent.futures.ThreadPoolExecutor( max_workers=40 )
+
+        future_data = [executor.submit( store_service.getMessagesByKeyword, word) for word in words]
+
+        keywords_data = []
+
+        for future in concurrent.futures.as_completed( future_data ):
+            keywords = future.result()
+            data = []
+            for keyword in keywords:
+                data.append(keyword.message.message)
+            keywords_data.append(data)
+
+        return keywords_data
+
     def coreSearch( self, words ):
         store_service = StorageService()
 
@@ -41,12 +60,13 @@ class CoreService:
         sorted_result = []
         outer_unique = {}
 
-        for word in words:
-            keywords = store_service.getMessagesByKeyword( word )
+        keywords_data = self.getKeywordsForWords( words )
+
+        for keywords in keywords_data:
             inner_unique = {}
 
             for keyword in keywords:
-                message = keyword.message.message
+                message = keyword
 
                 if message not in inner_unique:
                     inner_unique[message] = True

@@ -50,10 +50,37 @@ class AnsweringBot:
         tokens = message.split(' ')
         query = message[len(tokens[0])+1:]
 
-        if tokens[0].lower() == '!google':
+        command = tokens[0].lower()
+
+        index = 0
+        for index in range(0,len(command)):
+            if command[index] != '!':
+                break
+
+        command = command[index+1:]
+        command = command.lower()
+
+        intersaction_a = len(list(set(list('google')) & set(list(command))))
+        intersaction_b = len(list(set(list('recent')) & set(list(command))))
+
+        print('intersaction_a : ', intersaction_a)
+        print('intersaction_b : ', intersaction_b)
+
+        if intersaction_a >= 3:
             response = self.search( query.strip() )
             self.storeSearch( query, sender_id )
-            return response
 
-        if tokens[0].lower() == '!recent':
-            return self.coreSearch( query )
+            if intersaction_a != len('google'):
+                return ["You mean '!google'"] + response
+            else:
+                return response
+
+        elif intersaction_b >= 3:
+            res = self.coreSearch( query )
+
+            if intersaction_b != len('recent'):
+                return ["You mean '!recent'"]+res
+            else:
+                return res
+
+        return []

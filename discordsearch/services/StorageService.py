@@ -1,14 +1,5 @@
-from discordsearch.models import Messages
 from django.conf import settings
 
-"""
-import argparse
-import os
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
-import django
-django.setup()
-"""
 from discordsearch.models import Messages
 from discordsearch.models import Keywords
 
