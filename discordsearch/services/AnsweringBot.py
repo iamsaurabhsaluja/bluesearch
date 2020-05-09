@@ -97,4 +97,4 @@ class AnsweringBot:
                     return res
             return []
         else:
-            return ['HAHAHAHA']
+            return []
