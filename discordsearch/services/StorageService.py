@@ -27,5 +27,9 @@ class StorageService:
         return keywork
 
     def getMessagesByKeyword( self, keyword ):
-        Keywords = Keywords.objects.filter( Keyword = Keyword )
-        return Keywords
+        keywords = Keywords.objects.filter( keyword = keyword ).order_by('-created_time')[:20]
+        return keywords
+
+    def getMessageCount( self, message ):
+        messages = Messages.objects.filter( message = message )
+        return len(messages)
