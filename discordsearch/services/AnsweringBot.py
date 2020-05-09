@@ -63,11 +63,6 @@ class AnsweringBot:
 
         command = tokens[0].lower()
 
-        index = 0
-        for index in range(0,len(command)):
-            if command[index] != '!':
-                break
-
         """
         This following code determine the typing mistakes.
         The system can handle following version of !Google mistakes
@@ -75,29 +70,31 @@ class AnsweringBot:
         The same is done with !Recent command
         """
 
-        command = command[index:]
+        command = command[1:]
         command = command.lower()
 
         intersaction_a = len(list(set(list('google')) & set(list(command))))
         intersaction_b = len(list(set(list('recent')) & set(list(command))))
 
-        if intersaction_a >= 3:
-            response = self.googleSearch( message, query.strip(), sender_id )
+        if command[0] == '!':
+            if intersaction_a >= 3:
+                response = self.googleSearch( message, query.strip(), sender_id )
 
-            if command != 'google':
-                return ["You mean '!Google'"] + response
-            else:
-                return response
+                if command != 'google':
+                    return ["You mean '!Google'"] + response
+                else:
+                    return response
 
-        elif intersaction_b >= 3:
-            res = self.recentSearch( query, sender_id )
+            elif intersaction_b >= 3:
+                res = self.recentSearch( query, sender_id )
 
-            if len(res) == 2:
-                res = [res[0] , "Sorry, Nothing is found with - "+query , res[1]]
+                if len(res) == 2:
+                    res = [res[0] , "Sorry, Nothing is found with - "+query , res[1]]
 
-            if command != 'recent':
-                return ["You mean '!Recent'"]+res
-            else:
-                return res
-
-        return []
+                if command != 'recent':
+                    return ["You mean '!Recent'"]+res
+                else:
+                    return res
+            return []
+        else:
+            return ['HAHAHAHA']
