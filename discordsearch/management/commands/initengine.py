@@ -23,6 +23,11 @@ environ.Env.read_env()
 GUILD=env('GUILD')
 TOKEN=env('TOKEN')
 
+"""
+This is a duplicate of InitiateEngine. This is added for running by command line.
+Though we are not using anything here.
+"""
+
 #initiating the client
 client = discord.Client()
 

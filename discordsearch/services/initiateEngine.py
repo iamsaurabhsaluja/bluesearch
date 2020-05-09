@@ -20,6 +20,12 @@ TOKEN=env('TOKEN')
 #initiating the client
 client = discord.Client()
 
+"""
+This runs from start method of manage.py
+This implements on_message and on_ready functions of discord
+on_message calls passes the message to MessageHandler
+"""
+
 #This is called when any message comes in discord chat
 @client.event
 async def on_message(message):
@@ -37,7 +43,6 @@ async def on_ready():
         if guild.name == GUILD:
             break
     members = '\n - '.join([member.name for member in guild.members])
-    print(members)
 
 #booting up engine
 client.run(TOKEN)

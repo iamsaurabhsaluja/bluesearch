@@ -7,19 +7,24 @@ from discordsearch.services.CoreService import CoreService
 class AnsweringBot:
 
     """
-    Method search access SearchGoogle custom class,
+    Method googleSearch ch is called from prepareResponse
+    on getting !Google command from user.
+    This method access SearchGoogle custom class,
     which actually calls google api to get results
 
     Configuration:
 
     Here option is given to specify number of links
-    to be displayed on screen
+    to be displayed on screen.
+
+    after receiving the response this calls CoreService
+    track method, which tracks what user has typed
     """
 
-    def search( self, message, query, sender_id ):
+    def googleSearch( self, message, query, sender_id ):
         limit = 5
         gsearchengine = SearchGoogle()
-        search_results = ['success'] #gsearchengine.topResults(query, limit)
+        search_results = gsearchengine.topResults(query, limit)
 
         core = CoreService()
         core.track( message, sender_id )
@@ -27,16 +32,21 @@ class AnsweringBot:
         return search_results
 
     """
-    Method storeSearch creates the search history
+    This method recentSearch is called from prepareResponse
+    on getting !Recent command from user.
+    Method coreSearch calls CoreService coreSearch Method,
+    which searches from database using its own algorithm
     """
 
-    def coreSearch( self, query, sender_id ):
+    def recentSearch( self, query, sender_id ):
         words = query.split(' ')
 
         core = CoreService()
         return core.coreSearch( words, sender_id )
 
     """
+    Method prepareResponse is called from handler of MessageHandler,
+
     Method prepareResponse prepares the search query,
     it handles keyword understanding and distributes the message
     to the required method
@@ -58,6 +68,13 @@ class AnsweringBot:
             if command[index] != '!':
                 break
 
+        """
+        This following code determine the typing mistakes.
+        The system can handle following version of !Google mistakes
+        !Google, !GoGle, !!Googl, !!Goggl etc
+        The same is done with !Recent command
+        """
+
         command = command[index:]
         command = command.lower()
 
@@ -65,7 +82,7 @@ class AnsweringBot:
         intersaction_b = len(list(set(list('recent')) & set(list(command))))
 
         if intersaction_a >= 3:
-            response = self.search( message, query.strip(), sender_id )
+            response = self.googleSearch( message, query.strip(), sender_id )
 
             if command != 'google':
                 return ["You mean '!Google'"] + response
@@ -73,7 +90,7 @@ class AnsweringBot:
                 return response
 
         elif intersaction_b >= 3:
-            res = self.coreSearch( query, sender_id )
+            res = self.recentSearch( query, sender_id )
 
             if command != 'recent':
                 return ["You mean '!Recent'"]+res

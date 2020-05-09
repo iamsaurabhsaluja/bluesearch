@@ -5,6 +5,8 @@ from discordsearch.services.AnsweringBot import AnsweringBot
 class MessageHandler:
 
     """
+    Method handle is called from InitiateEngine. It receives the messages
+    and pass them to the method prepareResponse of bot - AnsweringBot
     this class act as connection between answering bot and main engine
     """
 

@@ -6,6 +6,8 @@ except ImportError:
 class SearchGoogle:
 
     """
+    Method topResults is called by AnsweringBot on
+    receiving !Google command from user
     topResults gets the top N google results.
     This uses googlesearch python library
     """

@@ -17,10 +17,14 @@ class StorageService:
 
         return keywork
 
-    def getMessagesByKeyword( self, keyword, sender_id ):
-        keywords = Keywords.objects.filter( keyword = keyword, sender_id = sender_id ).order_by('-created_time')[:20]
+    def getKeywordsByWord( self, word, sender_id ):
+        keywords = Keywords.objects.filter( keyword = word, sender_id = sender_id ).order_by('-created_time')[:20]
         return keywords
 
     def getMessageCount( self, message, sender_id ):
         messages = Messages.objects.filter( message = message, sender_id = sender_id )
         return len(messages)
+
+    def getTopMessages( self, sender_id ):
+        messages = Messages.objects.filter( sender_id = sender_id ).order_by('-created_time')[:20]
+        return messages
