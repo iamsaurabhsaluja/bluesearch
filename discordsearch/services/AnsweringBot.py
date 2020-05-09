@@ -16,24 +16,25 @@ class AnsweringBot:
     to be displayed on screen
     """
 
-    def search( self, query ):
+    def search( self, message, query, sender_id ):
         limit = 5
         gsearchengine = SearchGoogle()
         search_results = ['success'] #gsearchengine.topResults(query, limit)
+
+        core = CoreService()
+        core.track( message, sender_id )
+
         return search_results
 
     """
     Method storeSearch creates the search history
     """
 
-    def storeSearch( self, message, sender_id ):
-        core = CoreService()
-        core.track( message, sender_id )
-
-    def coreSearch( self, query ):
+    def coreSearch( self, query, sender_id ):
         words = query.split(' ')
+
         core = CoreService()
-        return core.coreSearch( words )
+        return core.coreSearch( words, sender_id )
 
     """
     Method prepareResponse prepares the search query,
@@ -57,29 +58,25 @@ class AnsweringBot:
             if command[index] != '!':
                 break
 
-        command = command[index+1:]
+        command = command[index:]
         command = command.lower()
 
         intersaction_a = len(list(set(list('google')) & set(list(command))))
         intersaction_b = len(list(set(list('recent')) & set(list(command))))
 
-        print('intersaction_a : ', intersaction_a)
-        print('intersaction_b : ', intersaction_b)
-
         if intersaction_a >= 3:
-            response = self.search( query.strip() )
-            self.storeSearch( query, sender_id )
+            response = self.search( message, query.strip(), sender_id )
 
-            if intersaction_a != len('google'):
-                return ["You mean '!google'"] + response
+            if command != 'google':
+                return ["You mean '!Google'"] + response
             else:
                 return response
 
         elif intersaction_b >= 3:
-            res = self.coreSearch( query )
+            res = self.coreSearch( query, sender_id )
 
-            if intersaction_b != len('recent'):
-                return ["You mean '!recent'"]+res
+            if command != 'recent':
+                return ["You mean '!Recent'"]+res
             else:
                 return res
 

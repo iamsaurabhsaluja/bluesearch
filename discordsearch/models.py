@@ -9,5 +9,6 @@ class Messages( models.Model ):
 
 class Keywords( models.Model ):
     keyword = models.CharField( max_length = 255, db_index=True )
+    sender_id = models.CharField( max_length = 255 )
     message = models.ForeignKey( Messages, on_delete=models.CASCADE )
     created_time = models.DateTimeField( auto_now_add = True )

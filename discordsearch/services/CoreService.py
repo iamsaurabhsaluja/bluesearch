@@ -5,7 +5,7 @@ import concurrent.futures
 
 class CoreService:
 
-    def makeKeyworks( self, word, msg ):
+    def makeKeyworks( self, word, msg, sender_id ):
         length = len(word)
         N = length
 
@@ -13,7 +13,7 @@ class CoreService:
             for i in range(0,length-N+1):
                 subword = word[i:i+N]
                 store_service = StorageService()
-                store_service.addToKeywords( msg, subword )
+                store_service.addToKeywords( msg, subword, sender_id )
 
             N = N-1
 
@@ -23,7 +23,7 @@ class CoreService:
         words = message.split(' ')
 
         for word in words:
-            self.makeKeyworks( word, msg )
+            self.makeKeyworks( word, msg, sender_id )
 
     def compare( self, msg1, msg2 ):
         if msg1[1][0] < msg2[1][0]:
@@ -36,11 +36,11 @@ class CoreService:
             else:
                 return -1
 
-    def getKeywordsForWords( self, words ):
+    def getKeywordsForWords( self, words, sender_id ):
         store_service = StorageService()
         executor = concurrent.futures.ThreadPoolExecutor( max_workers=40 )
 
-        future_data = [executor.submit( store_service.getMessagesByKeyword, word) for word in words]
+        future_data = [executor.submit( store_service.getMessagesByKeyword, word, sender_id) for word in words]
 
         keywords_data = []
 
@@ -53,14 +53,14 @@ class CoreService:
 
         return keywords_data
 
-    def coreSearch( self, words ):
+    def coreSearch( self, words, sender_id ):
         store_service = StorageService()
 
         ranking = {}
         sorted_result = []
         outer_unique = {}
 
-        keywords_data = self.getKeywordsForWords( words )
+        keywords_data = self.getKeywordsForWords( words, sender_id )
 
         for keywords in keywords_data:
             inner_unique = {}
@@ -76,7 +76,7 @@ class CoreService:
                         outer_unique[message] = outer_unique[message] + 1
 
         for message in outer_unique:
-            count = store_service.getMessageCount(message)
+            count = store_service.getMessageCount( message, sender_id )
             outer_unique[message] = (outer_unique[message],count)
 
         result = list(outer_unique.items())

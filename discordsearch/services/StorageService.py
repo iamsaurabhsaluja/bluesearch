@@ -11,16 +11,16 @@ class StorageService:
 
         return message
 
-    def addToKeywords( self, message, keyword ):
-        keywork = Keywords( keyword = keyword, message = message )
+    def addToKeywords( self, message, keyword, sender_id ):
+        keywork = Keywords( keyword = keyword, message = message, sender_id = sender_id )
         keywork.save()
 
         return keywork
 
-    def getMessagesByKeyword( self, keyword ):
-        keywords = Keywords.objects.filter( keyword = keyword ).order_by('-created_time')[:20]
+    def getMessagesByKeyword( self, keyword, sender_id ):
+        keywords = Keywords.objects.filter( keyword = keyword, sender_id = sender_id ).order_by('-created_time')[:20]
         return keywords
 
-    def getMessageCount( self, message ):
-        messages = Messages.objects.filter( message = message )
+    def getMessageCount( self, message, sender_id ):
+        messages = Messages.objects.filter( message = message, sender_id = sender_id )
         return len(messages)
