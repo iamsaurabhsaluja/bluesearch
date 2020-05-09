@@ -71,7 +71,7 @@ class AnsweringBot:
         """
 
 
-        if command[0] == '!':
+        if len(command) > 1 and command[0] == '!':
 
             command = command[1:]
             command = command.lower()

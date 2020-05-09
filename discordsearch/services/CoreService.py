@@ -16,8 +16,12 @@ class CoreService:
     def makeKeyworks( self, word, msg, sender_id ):
         length = len(word)
         N = length
+        T = 2
 
-        while N > 0:
+        if length == 2:
+            T = 1
+
+        while N >= T:
             for i in range(0,length-N+1):
                 subword = word[i:i+N]
                 store_service = StorageService()
