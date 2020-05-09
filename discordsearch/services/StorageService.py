@@ -10,9 +10,22 @@ import django
 django.setup()
 """
 from discordsearch.models import Messages
+from discordsearch.models import Keywords
 
 class StorageService:
 
-    def store( self, message, sender_name ):
-        message = Messages( message = message, sender_name = sender_name )
+    def addToMessages( self, message, sender_id ):
+        message = Messages( message = message, sender_id = sender_id )
         message.save()
+
+        return message
+
+    def addToKeywords( self, message, keyword ):
+        keywork = Keywords( keyword = keyword, message = message )
+        keywork.save()
+
+        return keywork
+
+    def getMessagesByKeyword( self, keyword ):
+        Keywords = Keywords.objects.filter( Keyword = Keyword )
+        return Keywords

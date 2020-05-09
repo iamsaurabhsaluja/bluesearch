@@ -2,6 +2,7 @@ import discord
 
 from discordsearch.services.SearchGoogle import SearchGoogle
 from discordsearch.services.StorageService import StorageService
+from discordsearch.services.CoreService import CoreService
 
 class AnsweringBot:
 
@@ -25,9 +26,14 @@ class AnsweringBot:
     Method storeSearch creates the search history
     """
 
-    def storeSearch( self, message, sender_name ):
-        storeService = StorageService()
-        storeService.store( message, sender_name )
+    def storeSearch( self, message, sender_id ):
+        core = CoreService()
+        core.track( message, sender_id )
+
+    def coreSearch( self, query ):
+        words = query.split(' ')
+        core = CoreService()
+        return core.coreSearch( words )
 
     """
     Method prepareResponse prepares the search query,
@@ -35,7 +41,7 @@ class AnsweringBot:
     to the required method
     """
 
-    def prepareResponse( self, message, sender_name ):
+    def prepareResponse( self, message, sender_id ):
 
         """
         checking the user data
@@ -46,8 +52,8 @@ class AnsweringBot:
 
         if tokens[0].lower() == '!google':
             response = self.search( query.strip() )
-            self.storeSearch( query, sender_name )
+            self.storeSearch( query, sender_id )
             return response
 
         if tokens[0].lower() == '!recent':
-            return self.search( query.strip() )
+            return self.coreSearch( query )

@@ -11,8 +11,7 @@ class MessageHandler:
     def handle( message ):
 
         content = str(message.content)
-        print(message)
-        sender_name = '' #str(message.name)
+        sender_id = str(message.author.id)
 
         answering_bot = AnsweringBot()
-        return answering_bot.prepareResponse( content, sender_name )
+        return answering_bot.prepareResponse( content, sender_id )
