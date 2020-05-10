@@ -39,8 +39,8 @@ class ViewService:
         print("entering ProcessThread")
         sys.stdout.flush()
 
-        my_thread = ProcessThread("DiscordThread")
-        my_thread.start()
+        #my_thread = ProcessThread("DiscordThread")
+        #my_thread.start()
 
         print("reaching stopStartFlag")
         sys.stdout.flush()
