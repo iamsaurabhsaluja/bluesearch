@@ -28,8 +28,7 @@ class ViewService:
         service = StorageService()
         if service.getStartFlag():
             return;
-        import pdb; pdb.set_trace()
-
+    
         my_thread = ProcessThread("DiscordThread")
         my_thread.start()
 
