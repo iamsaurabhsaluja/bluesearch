@@ -70,35 +70,34 @@ class AnsweringBot:
         The same is done with !Recent command
         """
 
-        if len(command) > 1 and command[0] == '!':
+        if len(command) == 2 && command.lower() == 'hi':
+            return ['hey']
+        elif len(command) > 1 and command[0] == '!':
 
             command = command[1:]
             command = command.lower()
 
-            if command == 'hi':
-                return ['hey']
-            else:
-                intersaction_a = len(list(set(list('google')) & set(list(command))))
-                intersaction_b = len(list(set(list('recent')) & set(list(command))))
+            intersaction_a = len(list(set(list('google')) & set(list(command))))
+            intersaction_b = len(list(set(list('recent')) & set(list(command))))
 
-                if intersaction_a >= 3:
-                    response = self.googleSearch( message, query.strip(), sender_id )
+            if intersaction_a >= 3:
+                response = self.googleSearch( message, query.strip(), sender_id )
 
-                    if command != 'google':
-                        return ["You mean '!Google'"] + response
-                    else:
-                        return response
+                if command != 'google':
+                    return ["You mean '!Google'"] + response
+                else:
+                    return response
 
-                elif intersaction_b >= 3:
-                    res = self.recentSearch( query, sender_id )
+            elif intersaction_b >= 3:
+                res = self.recentSearch( query, sender_id )
 
-                    if len(res) == 2:
-                        res = [res[0] , "Sorry, Nothing is found with - "+query , res[1]]
+                if len(res) == 2:
+                    res = [res[0] , "Sorry, Nothing is found with - "+query , res[1]]
 
-                    if command != 'recent':
-                        return ["You mean '!Recent'"]+res
-                    else:
-                        return res
+                if command != 'recent':
+                    return ["You mean '!Recent'"]+res
+                else:
+                    return res
             return []
         else:
             return []
