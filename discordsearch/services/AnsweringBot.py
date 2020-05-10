@@ -70,7 +70,7 @@ class AnsweringBot:
         The same is done with !Recent command
         """
 
-        if len(command) == 2 && command.lower() == 'hi':
+        if len(command) == 2 and command.lower() == 'hi':
             return ['hey']
         elif len(command) > 1 and command[0] == '!':
 
