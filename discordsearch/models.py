@@ -14,4 +14,4 @@ class Keywords( models.Model ):
     created_time = models.DateTimeField( auto_now_add = True )
 
 class Engine( models.Model ):
-    started = models.BooleanField( default = False )
+    started = models.IntegerField( default = 0 )

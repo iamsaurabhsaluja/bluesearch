@@ -20,8 +20,8 @@ def start():
 
     from discordsearch.services.StorageService import StorageService
 
-    service = StorageService()
-    service.startStartFlag()
+    #service = StorageService()
+    #service.startStartFlag()
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
 

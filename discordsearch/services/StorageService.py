@@ -32,11 +32,11 @@ class StorageService:
 
     def startStartFlag( self ):
         if len(Engine.objects.all()) == 0:
-            flag = Engine( started = False )
+            flag = Engine( started = 0 )
             flag.save()
         else:
             flag = Engine.objects.all()[0]
-            flag.started = False
+            flag.started = 0
             flag.save()
 
     def getStartFlag( self ):
@@ -45,5 +45,5 @@ class StorageService:
 
     def stopStartFlag( self ):
         flag = Engine.objects.all()[0]
-        flag.started = True
+        flag.started = 1
         flag.save()
