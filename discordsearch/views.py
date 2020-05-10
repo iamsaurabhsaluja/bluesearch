@@ -4,6 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from discordsearch.services.ViewService import ViewService
 from django.http import HttpResponse
+from discordsearch.services.StorageService import StorageService
+
 import json, sys
 
 def genericResponse( obj ):
@@ -31,6 +33,16 @@ def startEngineView( request ):
 
     print("reached at response")
     sys.stdout.flush()
+
+    response = StatusResponse(status_info = "Successful", status = '1001', data = {})
+
+    return genericResponse( response )
+
+@csrf_exempt
+def resetEngineView( request ):
+
+    storage = StorageService()
+    storage.startStartFlag()
 
     response = StatusResponse(status_info = "Successful", status = '1001', data = {})
 

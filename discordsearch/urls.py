@@ -5,6 +5,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    url(r'^resetEngine$', views.resetEngineView, name='resetEngine'),
     url(r'^startEngine$', views.startEngineView, name='startEngine'),
 ]
 
