@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from discordsearch.services.ViewService import ViewService
 from django.http import HttpResponse
-import json
+import json, sys
 
 def genericResponse( obj ):
     response = HttpResponse( json.dumps( obj ), content_type="application/json" )
@@ -22,8 +22,15 @@ def StatusResponse( status_info = None, status = None, data = None, updated_time
 
 @csrf_exempt
 def startEngineView( request ):
+
+    print("entered startEngineView")
+    sys.stdout.flush()
+
     view_service = ViewService()
     view_service.startEngine()
+
+    print("reached at response")
+    sys.stdout.flush()
 
     response = StatusResponse(status_info = "Successful", status = '1001', data = {})
 

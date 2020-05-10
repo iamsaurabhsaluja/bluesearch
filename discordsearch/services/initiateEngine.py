@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 import environ
 import asyncio
 import threading
+import sys
 
 from discordsearch.services.MessageHandler import MessageHandler
 
@@ -22,7 +23,13 @@ TOKEN=env('TOKEN')
 #initiating the client
 client = discord.Client()
 
+print("reached client")
+sys.stdout.flush()
+
 async def start():
+    print("starting client")
+    sys.stdout.flush()
+
     await client.start(TOKEN) # use client.start instead of client.run
 
 def run_it_forever(loop):
@@ -61,4 +68,6 @@ async def on_ready():
             break
     members = '\n - '.join([member.name for member in guild.members])
 
+print("starting init")
+sys.stdout.flush()
 init();
