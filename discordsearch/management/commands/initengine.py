@@ -1,15 +1,9 @@
-from django.core.management.base import BaseCommand, CommandError
-import os, django
+import os
 
 import discord
 import random
 from dotenv import load_dotenv
 import environ
-
-from discordsearch.models import Messages
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
-django.setup()
 
 from discordsearch.services.MessageHandler import MessageHandler
 
@@ -23,13 +17,14 @@ env = environ.Env(
 GUILD=env('GUILD')
 TOKEN=env('TOKEN')
 
-"""
-This is a duplicate of InitiateEngine. This is added for running by command line.
-Though we are not using anything here.
-"""
-
 #initiating the client
 client = discord.Client()
+
+"""
+This runs from start method of manage.py
+This implements on_message and on_ready functions of discord
+on_message calls passes the message to MessageHandler
+"""
 
 #This is called when any message comes in discord chat
 @client.event
@@ -48,10 +43,6 @@ async def on_ready():
         if guild.name == GUILD:
             break
     members = '\n - '.join([member.name for member in guild.members])
-    print(members)
 
-class Command(BaseCommand):
-    help = 'starts discord'
-
-    def handle(self, *args, **options):
-        client.run(TOKEN)
+#booting up engine
+client.run(TOKEN)
