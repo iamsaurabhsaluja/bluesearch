@@ -23,14 +23,14 @@ def StatusResponse( status_info = None, status = None, data = None, updated_time
 @csrf_exempt
 def startEngineView( request ):
 
-    #print("entered startEngineView")
-    #sys.stdout.flush()
+    print("entered startEngineView")
+    sys.stdout.flush()
 
-    #view_service = ViewService()
-    #view_service.startEngine()
+    view_service = ViewService()
+    view_service.startEngine()
 
-    #print("reached at response")
-    #sys.stdout.flush()
+    print("reached at response")
+    sys.stdout.flush()
 
     response = StatusResponse(status_info = "Successful", status = '1001', data = {})
 
