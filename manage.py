@@ -26,10 +26,9 @@ def start():
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
     django.setup()
-    #from discordsearch.services import initiateEngine
+    from discordsearch.services import initiateEngine
 
-    subprocess.Popen(['python','manage.py','initengine'])
-    #
+    #subprocess.Popen(['python','manage.py','initengine'])
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
 

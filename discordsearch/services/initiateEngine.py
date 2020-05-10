@@ -4,6 +4,8 @@ import discord
 import random
 from dotenv import load_dotenv
 import environ
+import asyncio
+import threading
 
 from discordsearch.services.MessageHandler import MessageHandler
 
@@ -19,6 +21,25 @@ TOKEN=env('TOKEN')
 
 #initiating the client
 client = discord.Client()
+
+
+async def start():
+    await client.start(TOKEN) # use client.start instead of client.run
+
+
+def run_it_forever(loop):
+    loop.run_forever()
+
+
+def init():
+    asyncio.get_child_watcher() # I still don't know if I need this method. It works without it.
+
+    loop = asyncio.get_event_loop()
+    loop.create_task(start())
+
+    thread = threading.Thread(target=run_it_forever, args=(loop,))
+    thread.start()
+
 
 """
 This runs from start method of manage.py
@@ -44,5 +65,5 @@ async def on_ready():
             break
     members = '\n - '.join([member.name for member in guild.members])
 
-#booting up engine
-client.run(TOKEN)
+init();
+#asyncio.run( faire_toutes_les_requetes_sans_bloquer(TOKEN) )
