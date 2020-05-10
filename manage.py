@@ -31,8 +31,8 @@ def start():
 
     #from discordsearch.services import initiateEngine
 
-    service = StorageService()
-    service.startStartFlag()
+    #service = StorageService()
+    #service.startStartFlag()
 
     #subprocess.Popen(['python','manage.py','initengine'])
 def main():
