@@ -9,15 +9,6 @@ import subprocess
 import threading
 import sys
 
-"""
-from discordsearch.services import InitiateEngine
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
-django.setup()
-from discordsearch.models import Messages
-from discordsearch.services import MessageHandler
-"""
-
 def start():
     """
     This is called the very first time when server runs
@@ -29,12 +20,8 @@ def start():
 
     from discordsearch.services.StorageService import StorageService
 
-    #from discordsearch.services import initiateEngine
-
-    #service = StorageService()
-    #service.startStartFlag()
-
-    #subprocess.Popen(['python','manage.py','initengine'])
+    service = StorageService()
+    service.startStartFlag()
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bluesearch.settings')
 
