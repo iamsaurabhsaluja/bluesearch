@@ -12,3 +12,6 @@ class Keywords( models.Model ):
     sender_id = models.CharField( max_length = 255 )
     message = models.ForeignKey( Messages, on_delete=models.CASCADE )
     created_time = models.DateTimeField( auto_now_add = True )
+
+class Engine( models.Model ):
+    started = models.BooleanField( default = False )

@@ -2,6 +2,7 @@ from django.conf import settings
 
 from discordsearch.models import Messages
 from discordsearch.models import Keywords
+from discordsearch.models import Engine
 
 class StorageService:
 
@@ -28,3 +29,21 @@ class StorageService:
     def getTopMessages( self, sender_id ):
         messages = Messages.objects.filter( sender_id = sender_id ).order_by('-created_time')[:20]
         return messages
+
+    def startStartFlag( self ):
+        if len(Engine.objects.all()) == 0:
+            flag = Engine( started = False )
+            flag.save()
+        else:
+            flag = Engine.objects.all()[0]
+            flag.started = False
+            flag.save()
+
+    def getStartFlag( self ):
+        flag = Engine.objects.all()[0]
+        return flag.started
+
+    def stopStartFlag( self ):
+        flag = Engine.objects.all()[0]
+        flag.started = True
+        flag.save()
