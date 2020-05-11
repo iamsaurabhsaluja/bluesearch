@@ -36,7 +36,7 @@ def run_it_forever(loop):
     loop.run_forever()
 
 def init():
-    asyncio.get_child_watcher() # I still don't know if I need this method. It works without it.
+    #asyncio.get_child_watcher() # I still don't know if I need this method. It works without it.
 
     loop = asyncio.get_event_loop()
     loop.create_task(start())
